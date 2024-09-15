@@ -2,9 +2,9 @@
 
 namespace Emran\SimpleCRUD;
 
+use Emran\SimpleCRUD\Commands\SimpleCRUDCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Emran\SimpleCRUD\Commands\SimpleCRUDCommand;
 
 class SimpleCRUDServiceProvider extends PackageServiceProvider
 {

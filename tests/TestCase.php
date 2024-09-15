@@ -2,9 +2,9 @@
 
 namespace Emran\SimpleCRUD\Tests;
 
+use Emran\SimpleCRUD\SimpleCRUDServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Emran\SimpleCRUD\SimpleCRUDServiceProvider;
 
 class TestCase extends Orchestra
 {
