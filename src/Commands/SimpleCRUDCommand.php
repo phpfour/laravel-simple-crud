@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Emran\SimpleCRUD\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class SimpleCRUDCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'laravel-simple-crud';
 
     public $description = 'My command';
 
