@@ -4,6 +4,7 @@ namespace Emran\SimpleCRUD;
 
 use Emran\SimpleCRUD\Commands\MakeCrudCommand;
 use Emran\SimpleCRUD\Commands\MakeCrudControllerCommand;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
@@ -32,6 +33,7 @@ class SimpleCRUDServiceProvider extends PackageServiceProvider
     public function packageBooted(): void
     {
         $this->registerRouteMacro();
+        $this->registerBladeComponents();
     }
 
     protected function registerRouteMacro(): void
@@ -45,5 +47,10 @@ class SimpleCRUDServiceProvider extends PackageServiceProvider
             Route::put("$name/{id}", [$controller, 'update'])->name("$name.update");
             Route::delete("$name/{id}", [$controller, 'destroy'])->name("$name.destroy");
         });
+    }
+
+    protected function registerBladeComponents(): void
+    {
+        Blade::component('simple-crud::components.field-wrapper', 'simple-crud-field-wrapper');
     }
 }

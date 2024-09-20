@@ -2,38 +2,39 @@
 
 namespace Emran\SimpleCRUD\Fields;
 
-use Illuminate\Support\Str;
-
-class Text extends Field
+class Boolean extends Field
 {
-    protected ?int $maxLength = null;
+    protected string $trueValue = '1';
+    protected string $falseValue = '0';
 
     public static function make(string $name, ?string $column = null): self
     {
         return new static($name, $column);
     }
 
-    public function renderForIndex(?string $value = null): string
+    public function trueValue(string $value): self
     {
-        return Str::limit(htmlspecialchars((string) $value), 50);
+        $this->trueValue = $value;
+        return $this;
     }
 
-    public function maxLength(int $length): self
+    public function falseValue(string $value): self
     {
-        $this->maxLength = $length;
+        $this->falseValue = $value;
         return $this;
     }
 
     public function render(?string $value = null): string
     {
-        return view('simple-crud::fields.text', [
+        return view('simple-crud::fields.boolean', [
             'name' => $this->name,
             'column' => $this->column,
-            'value' => old($this->column, $value),
+            'checked' => old($this->column, $value) === $this->trueValue,
             'inputClass' => $this->getInputClass(),
             'labelClass' => $this->getLabelClass(),
             'errorClass' => $this->getErrorClass(),
-            'maxLength' => $this->maxLength,
+            'trueValue' => $this->trueValue,
+            'falseValue' => $this->falseValue,
         ])->render();
     }
 
@@ -41,11 +42,7 @@ class Text extends Field
     public function getValidationRules(string $requestType = 'create'): array
     {
         $rules = parent::getValidationRules($requestType);
-
-        if ($this->maxLength !== null) {
-            $rules[] = 'max:'.$this->maxLength;
-        }
-
+        $rules[] = 'boolean';
         return $rules;
     }
 }

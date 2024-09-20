@@ -12,6 +12,17 @@ class SimpleCRUD
     protected string $model;
     protected string $route;
     protected CrudResource $resource;
+    protected Theme $theme;
+
+    public function __construct()
+    {
+        $this->theme = new Theme();
+    }
+
+    public function getTheme(): Theme
+    {
+        return $this->theme;
+    }
 
     /** @param class-string<\Illuminate\Database\Eloquent\Model> $model */
     public function setModel(string $model): self
@@ -22,6 +33,12 @@ class SimpleCRUD
 
         $this->model = $model;
         return $this;
+    }
+
+    /** @return class-string<\Illuminate\Database\Eloquent\Model> */
+    public function getModel(): string
+    {
+        return $this->model;
     }
 
     public function setRoute(string $route): self

@@ -1,0 +1,20 @@
+<?php
+
+namespace {{ namespace }};
+
+use Emran\SimpleCRUD\CrudResource;
+use Emran\SimpleCRUD\Fields\ID;
+use Emran\SimpleCRUD\Fields\Text;
+
+class {{ class }} extends CrudResource
+{
+    protected $model = {{ modelClass }}::class;
+
+    public function fields(): array
+    {
+        return [
+            ID::make(),
+            // Add more fields here
+        ];
+    }
+}

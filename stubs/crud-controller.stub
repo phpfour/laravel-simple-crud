@@ -1,0 +1,17 @@
+<?php declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use Emran\SimpleCRUD\Http\Controllers\CrudController;
+use {{ modelClass }};
+
+class {{ class }} extends CrudController
+{
+    /** @inheritDoc */
+    public function setup(): void
+    {
+        $this->crud->setModel({{ modelClass }}::class);
+        $this->crud->setRoute(config('simple-crud.route_prefix') . '/{{ modelVariable }}s');
+        $this->crudResource = new {{ model }}CrudResource();
+    }
+}

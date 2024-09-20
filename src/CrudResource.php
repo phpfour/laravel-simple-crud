@@ -9,6 +9,13 @@ use Illuminate\Support\Collection;
 abstract class CrudResource
 {
     protected string $model;
+    protected SimpleCRUD $crud;
+
+    public function __construct(SimpleCRUD $crud)
+    {
+        $this->crud = $crud;
+        $this->crud->setModel($this->model);
+    }
 
     /** @return array<int, \Emran\SimpleCRUD\Fields\Field> */
     abstract public function fields(): array;
@@ -22,7 +29,7 @@ abstract class CrudResource
     public function rules(string $requestType = 'create'): array
     {
         return collect($this->fields())
-            ->mapWithKeys(function (Field $field) use ($requestType) {
+            ->mapWithKeys(function (Field $field) use ($requestType): array {
                 return [$field->column => $field->getValidationRules($requestType)];
             })
             ->all();
@@ -30,37 +37,35 @@ abstract class CrudResource
 
     public function renderForm(?Model $model = null): string
     {
-        $theme = new Theme();
-
         return view('simple-crud::form', [
             'fields' => $this->fields(),
             'model' => $model,
-            'formClass' => $theme->getClass('form'),
-            'buttonClass' => $theme->getClass('button'),
+            'formClass' => $this->crud->getTheme()->getClass('form'),
+            'buttonClass' => $this->crud->getTheme()->getClass('button'),
         ])->render();
     }
 
     /** @return \Illuminate\Support\Collection<int, \Emran\SimpleCRUD\Fields\Field> */
     public function indexFields(): Collection
     {
-        return collect($this->fields())->filter->showOnIndex;
+        return collect($this->fields())->filter(fn(Field $field): bool => $field->isShownOnIndex());
     }
 
     /** @return \Illuminate\Support\Collection<int, \Emran\SimpleCRUD\Fields\Field> */
     public function detailFields(): Collection
     {
-        return collect($this->fields())->filter->showOnDetail;
+        return collect($this->fields())->filter(fn(Field $field): bool => $field->isShownOnDetail());
     }
 
     /** @return \Illuminate\Support\Collection<int, \Emran\SimpleCRUD\Fields\Field> */
     public function creationFields(): Collection
     {
-        return collect($this->fields())->filter->showOnCreate;
+        return collect($this->fields())->filter(fn(Field $field): bool => $field->isShownOnCreate());
     }
 
     /** @return \Illuminate\Support\Collection<int, \Emran\SimpleCRUD\Fields\Field> */
     public function updateFields(): Collection
     {
-        return collect($this->fields())->filter->showOnUpdate;
+        return collect($this->fields())->filter(fn(Field $field): bool => $field->isShownOnUpdate());
     }
 }

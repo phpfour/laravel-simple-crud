@@ -7,8 +7,8 @@ use Illuminate\Support\Str;
 
 abstract class Field
 {
-    protected string $name;
-    public ?string $column;
+    public string $name;
+    public string $column;
 
     /** @var array<int, string> */
     protected array $rules = [];
@@ -34,6 +34,11 @@ abstract class Field
     }
 
     abstract public function render(?string $value = null): string;
+
+    public function renderForIndex(?string $value = null): string
+    {
+        return htmlspecialchars((string) $value);
+    }
 
     public function rules(string ...$rules): self
     {
@@ -88,13 +93,33 @@ abstract class Field
     {
         $rules = $this->rules;
 
-        if ($requestType === 'create' && !empty($this->creationRules)) {
+        if ($requestType === 'create' && $this->creationRules !== null) {
             $rules = array_merge($rules, $this->creationRules);
-        } elseif ($requestType === 'update' && !empty($this->updateRules)) {
+        } elseif ($requestType === 'update' && $this->updateRules !== null) {
             $rules = array_merge($rules, $this->updateRules);
         }
 
         return $rules;
+    }
+
+    public function isShownOnIndex(): bool
+    {
+        return $this->showOnIndex;
+    }
+
+    public function isShownOnDetail(): bool
+    {
+        return $this->showOnDetail;
+    }
+
+    public function isShownOnCreate(): bool
+    {
+        return $this->showOnCreate;
+    }
+
+    public function isShownOnUpdate(): bool
+    {
+        return $this->showOnUpdate;
     }
 
     protected function getInputClass(): string
