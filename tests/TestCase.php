@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Emran\SimpleCRUD\Tests;
 
@@ -13,10 +13,11 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Emran\\SimpleCRUD\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn(string $modelName) => 'Emran\\SimpleCRUD\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
     }
 
+    /** @inheritDoc */
     protected function getPackageProviders($app)
     {
         return [
@@ -24,13 +25,9 @@ class TestCase extends Orchestra
         ];
     }
 
+    /** @inheritDoc */
     public function getEnvironmentSetUp($app)
     {
         config()->set('database.default', 'testing');
-
-        /*
-        $migration = include __DIR__.'/../database/migrations/create_laravel-simple-crud_table.php.stub';
-        $migration->up();
-        */
     }
 }

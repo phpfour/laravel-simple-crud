@@ -2,9 +2,8 @@
     "name": "phpfour/laravel-simple-crud",
     "description": "A simple CRUD implementation for Laravel applications",
     "keywords": [
-        "Mohammad Emran Hasan",
         "laravel",
-        "laravel-simple-crud"
+        "crud"
     ],
     "homepage": "https://github.com/phpfour/laravel-simple-crud",
     "license": "MIT",
@@ -21,13 +20,10 @@
         "illuminate/contracts": "^10.0||^11.0"
     },
     "require-dev": {
-        "laravel/pint": "^1.14",
-        "nunomaduro/collision": "^8.1.1||^7.10.0",
+        "figlab/coding-standard": "^1.0",
         "larastan/larastan": "^2.9",
+        "nunomaduro/collision": "^8.1.1||^7.10.0",
         "orchestra/testbench": "^9.0.0||^8.22.0",
-        "pestphp/pest": "^2.34",
-        "pestphp/pest-plugin-arch": "^2.7",
-        "pestphp/pest-plugin-laravel": "^2.3",
         "phpstan/extension-installer": "^1.3",
         "phpstan/phpstan-deprecation-rules": "^1.1",
         "phpstan/phpstan-phpunit": "^1.3",
@@ -59,15 +55,15 @@
             "@php vendor/bin/testbench serve"
         ],
         "analyse": "vendor/bin/phpstan analyse",
-        "test": "vendor/bin/pest",
-        "test-coverage": "vendor/bin/pest --coverage",
-        "format": "vendor/bin/pint"
+        "test": "vendor/bin/phpunit",
+        "cs:check": "phpcs -p -s --colors --report-full --report-summary",
+        "cs:fix": "phpcbf -p --colors"
     },
     "config": {
         "sort-packages": true,
         "allow-plugins": {
-            "pestphp/pest-plugin": true,
-            "phpstan/extension-installer": true
+            "phpstan/extension-installer": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
         }
     },
     "extra": {
