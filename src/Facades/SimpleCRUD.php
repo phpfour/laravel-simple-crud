@@ -1,12 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Emran\SimpleCRUD\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-/**
- * @see \Emran\SimpleCRUD\SimpleCRUD
- */
+/** @see \Emran\SimpleCRUD\SimpleCRUD */
 class SimpleCRUD extends Facade
 {
     protected static function getFacadeAccessor(): string

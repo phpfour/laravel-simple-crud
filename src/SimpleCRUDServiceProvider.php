@@ -1,8 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Emran\SimpleCRUD;
 
-use Emran\SimpleCRUD\Commands\SimpleCRUDCommand;
+use Emran\SimpleCRUD\Commands\MakeCrudCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -19,7 +19,6 @@ class SimpleCRUDServiceProvider extends PackageServiceProvider
             ->name('laravel-simple-crud')
             ->hasConfigFile()
             ->hasViews()
-            ->hasMigration('create_laravel_simple_crud_table')
-            ->hasCommand(SimpleCRUDCommand::class);
+            ->hasCommand(MakeCrudCommand::class);
     }
 }

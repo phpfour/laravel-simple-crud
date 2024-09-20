@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<ruleset name="Coding Standard">
+    <!-- Include all rules from the IxDF Coding Standard -->
+    <rule ref="FigLabCodingStandard"/>
+
+    <!-- Paths to check -->
+    <file>config</file>
+    <file>src</file>
+    <file>tests</file>
+</ruleset>
