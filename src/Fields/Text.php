@@ -18,6 +18,17 @@ class Text extends Field
         return Str::limit(htmlspecialchars((string) $value), 50);
     }
 
+    public function renderForDetail(?string $value = null): string
+    {
+        $value = htmlspecialchars((string) $value);
+
+        if (Str::length($value) > 100) {
+            return '<div class="whitespace-pre-wrap">'.nl2br($value).'</div>';
+        }
+
+        return $value;
+    }
+
     public function maxLength(int $length): self
     {
         $this->maxLength = $length;

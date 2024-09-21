@@ -34,6 +34,8 @@ class SimpleCRUDServiceProvider extends PackageServiceProvider
     {
         $this->registerRouteMacro();
         $this->registerBladeComponents();
+
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'simple-crud');
     }
 
     protected function registerRouteMacro(): void

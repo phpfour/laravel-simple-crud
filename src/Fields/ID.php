@@ -9,6 +9,8 @@ class ID extends Field
         parent::__construct($name, $column);
 
         $this->sortable();
+        $this->hideWhenCreating();
+        $this->hideWhenUpdating();
     }
 
     public static function make(string $name = 'ID', ?string $column = 'id'): self

@@ -5,6 +5,7 @@ namespace Emran\SimpleCRUD;
 use Emran\SimpleCRUD\Fields\Field;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\View;
 
 abstract class CrudResource
 {
@@ -37,11 +38,10 @@ abstract class CrudResource
 
     public function renderForm(?Model $model = null): string
     {
-        return view('simple-crud::form', [
-            'fields' => $this->fields(),
+        return View::make('simple-crud::form', [
             'model' => $model,
-            'formClass' => $this->crud->getTheme()->getClass('form'),
-            'buttonClass' => $this->crud->getTheme()->getClass('button'),
+            'fields' => $model ? $this->updateFields() : $this->creationFields(),
+            'crud' => $this->crud,
         ])->render();
     }
 

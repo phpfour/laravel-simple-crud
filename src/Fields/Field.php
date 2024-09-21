@@ -40,6 +40,11 @@ abstract class Field
         return htmlspecialchars((string) $value);
     }
 
+    public function renderForDetail(?string $value = null): string
+    {
+        return htmlspecialchars((string) $value);
+    }
+
     public function rules(string ...$rules): self
     {
         $this->rules = array_merge($this->rules, $rules);
